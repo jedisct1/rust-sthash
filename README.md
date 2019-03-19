@@ -9,7 +9,7 @@ A typical use of STHash is to compute keys for locally cached objects.
 
 The construction relies on:
 
-- a composition of two ϵ-almost-∆-universal functions, NH and Poly1305. See the [Adiantum](https://tosc.iacr.org/index.php/ToSC/article/view/7360/6530) paper for a justification of this composition.
+- A composition of two ϵ-almost-∆-universal functions, NH and Poly1305. See the [Adiantum](https://tosc.iacr.org/index.php/ToSC/article/view/7360/6530) paper for a justification of this composition.
 - The KMAC keyed hash function, both to produce the final tag and as a XOF to derive the NH, Poly1305 and finalization keys.
 
 The current code is portable, written in safe Rust, and has a lot of room for optimization.

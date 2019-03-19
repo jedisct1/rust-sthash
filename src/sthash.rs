@@ -39,7 +39,7 @@ impl Hash {
     }
 }
 
-pub fn new(mut key: Key, personalization: &[u8]) -> Hash {
+pub fn new(key: Key, personalization: &[u8]) -> Hash {
     if key.0.len() != KEY_BYTES {
         panic!("Incorrect key size");
     }

@@ -3,6 +3,11 @@ name = "sthash"
 version = "0.1.0"
 authors = ["Frank Denis <github@pureftpd.org>"]
 edition = "2018"
+description = "A fast cryptographic hash function"
+keywords = ["crypto","cryptography","hash"]
+categories = ["algorithms", "cryptography"]
+license = "ISC"
+repository = "https://github.com/jedisct1/rust-sthash"
 
 [dependencies]
 byteorder = "1.3"

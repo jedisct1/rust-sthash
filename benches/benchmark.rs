@@ -1,7 +1,7 @@
 #[macro_use]
 extern crate criterion;
-extern crate blake2b_simd;
-extern crate sthash;
+use blake2b_simd;
+
 
 use blake2b_simd::blake2bp;
 use criterion::Criterion;

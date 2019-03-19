@@ -14,6 +14,7 @@ pub struct Hash {
 }
 
 impl Hash {
+    #[inline]
     pub fn hash(&self, out: &mut Vec<u8>, msg: &[u8]) {
         let mut cursor = Cursor::new(msg);
         let mut remaining = msg.len();

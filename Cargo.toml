@@ -8,6 +8,14 @@ edition = "2018"
 byteorder = "1.3"
 sp800-185 = "0.2"
 
+[dev-dependencies]
+criterion = "0.2"
+blake2b_simd = "0.4"
+
+[[bench]]
+name = "benchmark"
+harness = false
+
 [profile.release]
 lto = true
 panic = "abort"

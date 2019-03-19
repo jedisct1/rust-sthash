@@ -3,7 +3,9 @@ use byteorder::{ByteOrder, LittleEndian};
 use sp800_185::{CShake, KMac};
 use std::rc::Rc;
 
-const KEY_BYTES: usize = 32 + nhpoly1305::KEY_BYTES;
+const KMAC_KEY_BYTES: usize = 32;
+const KEY_BYTES: usize = KMAC_KEY_BYTES + nhpoly1305::NHPOLY_KEY_BYTES;
+pub const OUTPUT_BYTES: usize = 32;
 pub const SEED_BYTES: usize = 32;
 pub const MIN_SEED_BYTES: usize = 16;
 
@@ -23,7 +25,7 @@ pub struct Hasher {
 impl Hasher {
     pub fn hash(&self, msg: &[u8]) -> Vec<u8> {
         let nhpoly_key = &self.inner.key.0[32..];
-        debug_assert_eq!(nhpoly_key.len(), nhpoly1305::KEY_BYTES);
+        debug_assert_eq!(nhpoly_key.len(), nhpoly1305::NHPOLY_KEY_BYTES);
         let st_nhpoly = nhpoly1305::new(nhpoly_key);
         let mut poly = [0u8; 16];
         st_nhpoly.hash(&mut poly, &msg);
@@ -41,7 +43,7 @@ impl Hasher {
 
     pub fn new(key: Key, personalization: Option<&[u8]>) -> Hasher {
         debug_assert_eq!(key.0.len(), KEY_BYTES);
-        let kmac_key = &key.0[..32];
+        let kmac_key = &key.0[..KMAC_KEY_BYTES];
         let st_kmac = KMac::new_kmac128(kmac_key, personalization.unwrap_or_default());
         Hasher {
             inner: Rc::new(HashInner { key, st_kmac }),

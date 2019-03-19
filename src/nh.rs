@@ -7,7 +7,8 @@ pub const NH_MESSAGE_UNIT: usize = NH_PAIR_STRIDE * 8; // 16
 pub const NH_NUM_STRIDES: usize = 64;
 pub const NH_MESSAGE_DWORDS: usize = NH_PAIR_STRIDE * 2 * NH_NUM_STRIDES;
 pub const NH_MESSAGE_BYTES: usize = NH_MESSAGE_DWORDS * 4; // 1Kb
-pub const NH_BYTES: usize = 8 * 4;
+pub const NH_KEY_BYTES_PER_MESSAGE: usize = 4 * NH_MESSAGE_BYTES;
+pub const NH_OUTPUT_BYTES: usize = 8 * 4;
 
 pub struct Hash {
     key: Vec<u32>,

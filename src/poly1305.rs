@@ -1,6 +1,8 @@
 use byteorder::{ByteOrder, LittleEndian, ReadBytesExt};
 use std::io::Cursor;
 
+pub const POLY_KEY_BYTES: usize = 16;
+
 #[derive(Debug)]
 struct Key {
     r0: u64,

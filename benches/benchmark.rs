@@ -2,7 +2,6 @@
 extern crate criterion;
 use blake2b_simd;
 
-
 use blake2b_simd::blake2bp;
 use criterion::Criterion;
 use sthash::*;

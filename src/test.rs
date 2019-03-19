@@ -11,3 +11,15 @@ fn basic() {
     let h2 = hasher.hash(b"test data 2");
     assert_ne!(h1, h2);
 }
+
+#[test]
+fn large() {
+    let mut seed = [0; SEED_BYTES];
+    thread_rng().fill_bytes(&mut seed);
+    let key = Key::from_seed(&seed, Some(b"test suite"));
+    let hasher = Hasher::new(key, None);
+    let large = vec![0x42; 10_0000];
+    let h1 = hasher.hash(&large);
+    let h2 = hasher.hash(b"test data 2");
+    assert_ne!(h1, h2);
+}

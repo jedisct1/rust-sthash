@@ -27,18 +27,13 @@ impl Key {
         Key { r0, r1, r2 }
     }
 }
-pub struct Hash {
+
+pub struct Hasher {
     key: Key,
     st: State,
 }
 
-impl Hash {
-    pub fn new(key: [u8; 16]) -> Self {
-        let key = Key::new(key);
-        let st = State::default();
-        Hash { key, st }
-    }
-
+impl Hasher {
     pub fn update(&mut self, msg: &[u8]) {
         let (r0, r1, r2) = (self.key.r0, self.key.r1, self.key.r2);
         let (mut h0, mut h1, mut h2) = (self.st.h0, self.st.h1, self.st.h2);
@@ -137,8 +132,14 @@ impl Hash {
 
     #[allow(dead_code)]
     pub fn hash(out: &mut [u8; 16], key: [u8; 16], msg: &[u8]) {
-        let mut h = Hash::new(key);
+        let mut h = new(key);
         h.update(msg);
         h.finalize_noadd(out);
     }
+}
+
+pub fn new(key: [u8; 16]) -> Hasher {
+    let key = Key::new(key);
+    let st = State::default();
+    Hasher { key, st }
 }

@@ -16,11 +16,11 @@ struct HashInner {
 }
 
 #[derive(Clone)]
-pub struct Hash {
+pub struct Hasher {
     inner: Rc<HashInner>,
 }
 
-impl Hash {
+impl Hasher {
     pub fn hash(&self, msg: &[u8]) -> Vec<u8> {
         let nhpoly_key = &self.inner.key.0[32..];
         let st_nhpoly = nhpoly1305::new(nhpoly_key);
@@ -39,13 +39,13 @@ impl Hash {
     }
 }
 
-pub fn new(key: Key, personalization: &[u8]) -> Hash {
+pub fn new(key: Key, personalization: &[u8]) -> Hasher {
     if key.0.len() != KEY_BYTES {
         panic!("Incorrect key size");
     }
     let kmac_key = &key.0[..32];
     let st_kmac = KMac::new_kmac128(kmac_key, personalization);
-    Hash {
+    Hasher {
         inner: Rc::new(HashInner { key, st_kmac }),
     }
 }

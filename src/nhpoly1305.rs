@@ -4,11 +4,11 @@ pub const KEY_BYTES: usize = 16 + 4096;
 
 const NH_HASHES_PER_POLY: usize = 16; // 16 * (4 * u64 sums) polys over 512 bytes
 
-pub struct Hash<'t> {
+pub struct Hasher<'t> {
     key: &'t [u8],
 }
 
-impl<'t> Hash<'t> {
+impl<'t> Hasher<'t> {
     pub fn hash(&self, out: &mut [u8; 16], msg: &[u8]) {
         let key = self.key;
         let mut poly_key = [0u8; 16];
@@ -17,7 +17,7 @@ impl<'t> Hash<'t> {
         let mut nh_out = vec![];
         let mut remaining = msg.len();
         let mut off = 0;
-        let mut st_poly = poly1305::Hash::new(poly_key);
+        let mut st_poly = poly1305::new(poly_key);
         let st_nh = nh::new(nh_key);
         while remaining > nh::NH_MESSAGE_BYTES {
             st_nh.hash(&mut nh_out, &msg[off..off + nh::NH_MESSAGE_BYTES]);
@@ -42,9 +42,9 @@ impl<'t> Hash<'t> {
     }
 }
 
-pub fn new(key: &[u8]) -> Hash<'_> {
+pub fn new(key: &[u8]) -> Hasher<'_> {
     if key.len() != KEY_BYTES {
         panic!("Incorrect key size");
     }
-    Hash { key }
+    Hasher { key }
 }

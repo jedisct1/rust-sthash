@@ -1,4 +1,5 @@
-# STHash
+# STHash [![docs.rs](https://docs.rs/sthash/badge.svg)](https://docs.rs/sthash)
+
 
 STHash is a fast, keyed, cryptographic hash function designed to process large, possibly untrusted data.
 

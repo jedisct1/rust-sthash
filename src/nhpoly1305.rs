@@ -20,7 +20,7 @@ impl<'t> Hasher<'t> {
         let mut st_poly = poly1305::new(poly_key);
         let st_nh = nh::new(nh_key);
         while remaining > nh::NH_MESSAGE_BYTES {
-            st_nh.hash(&mut nh_out, &msg[off..off + nh::NH_MESSAGE_BYTES]);
+            st_nh.hash_avx2(&mut nh_out, &msg[off..off + nh::NH_MESSAGE_BYTES]);
             if nh_out.len() == nh::NH_OUTPUT_BYTES * NHPOLY_HASHES_PER_POLY {
                 st_poly.update(&nh_out);
                 nh_out.truncate(0);

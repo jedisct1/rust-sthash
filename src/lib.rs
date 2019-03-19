@@ -6,4 +6,7 @@ mod nhpoly1305;
 mod poly1305;
 mod sthash;
 
-pub use sthash::*;
+#[cfg(test)]
+mod test;
+
+pub use crate::sthash::*;

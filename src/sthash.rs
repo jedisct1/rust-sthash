@@ -23,6 +23,7 @@ pub struct Hasher {
 impl Hasher {
     pub fn hash(&self, msg: &[u8]) -> Vec<u8> {
         let nhpoly_key = &self.inner.key.0[32..];
+        debug_assert_eq!(nhpoly_key.len(), nhpoly1305::KEY_BYTES);
         let st_nhpoly = nhpoly1305::new(nhpoly_key);
         let mut poly = [0u8; 16];
         st_nhpoly.hash(&mut poly, &msg);
@@ -37,25 +38,24 @@ impl Hasher {
         st_kmac.finalize(&mut h);
         h
     }
-}
 
-pub fn new(key: Key, personalization: &[u8]) -> Hasher {
-    if key.0.len() != KEY_BYTES {
-        panic!("Incorrect key size");
-    }
-    let kmac_key = &key.0[..32];
-    let st_kmac = KMac::new_kmac128(kmac_key, personalization);
-    Hasher {
-        inner: Rc::new(HashInner { key, st_kmac }),
+    pub fn new(key: Key, personalization: Option<&[u8]>) -> Hasher {
+        debug_assert_eq!(key.0.len(), KEY_BYTES);
+        let kmac_key = &key.0[..32];
+        let st_kmac = KMac::new_kmac128(kmac_key, personalization.unwrap_or_default());
+        Hasher {
+            inner: Rc::new(HashInner { key, st_kmac }),
+        }
     }
 }
 
 impl Key {
-    pub fn from_seed(seed: &[u8]) -> Key {
+    pub fn from_seed(seed: &[u8], personalization: Option<&[u8]>) -> Key {
         if seed.len() < MIN_SEED_BYTES {
             panic!("Seed is too short");
         }
-        let mut st_cshake = CShake::new_cshake128(b"sthash key", &[]);
+        let mut st_cshake =
+            CShake::new_cshake128(b"sthash key", personalization.unwrap_or_default());
         st_cshake.update(seed);
         let mut key = vec![0; KEY_BYTES];
         st_cshake.finalize(&mut key);

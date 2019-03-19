@@ -22,7 +22,7 @@ impl Hash {
 
         debug_assert_eq!(NH_NUM_PASSES, 4);
         debug_assert_eq!(remaining % NH_MESSAGE_UNIT, 0);
-        debug_assert_eq!(key_.len(), remaining / NH_MESSAGE_UNIT * 16);
+        debug_assert!(key_.len() >= remaining / NH_MESSAGE_UNIT * 16);
         while remaining > 0 {
             let m0 = cursor.read_u32::<LittleEndian>().unwrap();
             let m1 = cursor.read_u32::<LittleEndian>().unwrap();

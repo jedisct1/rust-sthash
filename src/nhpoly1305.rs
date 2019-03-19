@@ -32,7 +32,7 @@ impl<'t> Hasher<'t> {
             let mask = nh::NH_MESSAGE_UNIT - 1;
             let padded_len = (remaining + mask) & !mask;
             let mut padded = vec![0; padded_len];
-            padded.copy_from_slice(&msg[off..]);
+            padded[..remaining].copy_from_slice(&msg[off..]);
             st_nh.hash(&mut nh_out, &padded);
         }
         if !nh_out.is_empty() {

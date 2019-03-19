@@ -21,9 +21,11 @@ You can expect a 2x to 4x speed increase in future versions.
 
 ```rust
 use sthash::*;
+use rand::{thread_rng, RngCore};
 
 // This must be a random, secret seed.
-let seed: [u8; SEED_BYTES] = [...];
+let seed = [u8; SEED_BYTES];
+thread_rng().fill_bytes(&mut seed);
 
 // The key constructor accepts an optional application name
 // Different personalization strings produce different keys
@@ -43,8 +45,7 @@ let h2 = hasher.hash(data2);
 
 ## References
 
-- [UMAC: Fast and Secure Message Authentication](https://fastcrypto.org/umac/umac_proc.pdf)
-- [The Poly1305-AES message authentication code](https://cr.yp.to/mac/poly1305-20050329.pdf)
-- [Adiantum: length-preserving encryption for entry-level processors](https://tosc.iacr.org/index.php/ToSC/article/view/7360/6530)
-- [Beyond-Birthday-Bound Secure MACs](http://materials.dagstuhl.de/files/18/18021/18021.YannickSeurin.Slides.pdf)
-- [Short-output universal hash functions andtheir use in fast and secure data authentication](https://eprint.iacr.org/2011/116.pdf)
+- [UMAC: Fast and Secure Message Authentication](https://fastcrypto.org/umac/umac_proc.pdf) (J. Black, S.Halevi, H.Krawczyk, T.Krovetz, and P. Rogaway)
+- [The Poly1305-AES message authentication code](https://cr.yp.to/mac/poly1305-20050329.pdf) (Daniel J. Bernstein)
+- [Adiantum: length-preserving encryption for entry-level processors](https://tosc.iacr.org/index.php/ToSC/article/view/7360/6530) (Paul Crowley and Eric Biggers)
+- [Short-output universal hash functions andtheir use in fast and secure data authentication](https://eprint.iacr.org/2011/116.pdf) (Yannick Seurin)

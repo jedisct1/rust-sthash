@@ -1,8 +1,10 @@
 use crate::sthash::*;
+use rand::{thread_rng, RngCore};
 
 #[test]
 fn basic() {
-    let seed = [0x42; SEED_BYTES];
+    let mut seed = [0; SEED_BYTES];
+    thread_rng().fill_bytes(&mut seed);
     let key = Key::from_seed(&seed, Some(b"test suite"));
     let hasher = Hasher::new(key, None);
     let h1 = hasher.hash(b"test data 1");

@@ -16,6 +16,7 @@ sp800-185 = "0.2"
 [dev-dependencies]
 criterion = "0.2"
 blake2b_simd = "0.4"
+rand = "0.6"
 
 [[bench]]
 name = "benchmark"

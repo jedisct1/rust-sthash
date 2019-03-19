@@ -31,7 +31,8 @@ impl<'t> Hasher<'t> {
         if remaining > 0 {
             let mask = nh::NH_MESSAGE_UNIT - 1;
             let padded_len = (remaining + mask) & !mask;
-            let mut padded = vec![0; padded_len];
+            let mut unit = [0u8; nh::NH_MESSAGE_UNIT];
+            let padded = &mut unit[..padded_len];
             padded[..remaining].copy_from_slice(&msg[off..]);
             st_nh.hash(&mut nh_out, &padded);
         }

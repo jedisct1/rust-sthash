@@ -1,4 +1,4 @@
-use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
+use byteorder::{ByteOrder, LittleEndian, ReadBytesExt, WriteBytesExt};
 use std::io::Cursor;
 
 pub const NH_NUM_PASSES: usize = 4;
@@ -7,11 +7,12 @@ pub const NH_MESSAGE_UNIT: usize = NH_PAIR_STRIDE * 8; // 16
 pub const NH_NUM_STRIDES: usize = 64;
 pub const NH_MESSAGE_DWORDS: usize = NH_PAIR_STRIDE * 2 * NH_NUM_STRIDES;
 pub const NH_MESSAGE_BYTES: usize = NH_MESSAGE_DWORDS * 4; // 1Kb
-pub const NH_KEY_BYTES_PER_MESSAGE: usize = 4 * NH_MESSAGE_BYTES;
+pub const NH_KEYS_PER_MESSAGE: usize = NH_MESSAGE_BYTES;
+pub const NH_KEY_BYTES_PER_MESSAGE: usize = 4 * NH_KEYS_PER_MESSAGE;
 pub const NH_OUTPUT_BYTES: usize = 8 * 4;
 
 pub struct Hash {
-    key: Vec<u32>,
+    key: [u32; NH_KEYS_PER_MESSAGE],
 }
 
 impl Hash {
@@ -20,7 +21,7 @@ impl Hash {
         let mut cursor = Cursor::new(msg);
         let mut remaining = msg.len();
         let (mut s0, mut s1, mut s2, mut s3) = (0u64, 0u64, 0u64, 0u64);
-        let mut key_ = self.key.as_slice();
+        let mut key_ = &self.key[..];
 
         debug_assert_eq!(NH_NUM_PASSES, 4);
         debug_assert_eq!(remaining % NH_MESSAGE_UNIT, 0);
@@ -67,10 +68,10 @@ impl Hash {
 }
 
 pub fn new(key: &[u8]) -> Hash {
-    let mut key_u32 = Vec::with_capacity(key.len() / 4);
-    let mut cursor = Cursor::new(key);
-    for _ in 0..key_u32.capacity() {
-        key_u32.push(cursor.read_u32::<LittleEndian>().unwrap());
+    debug_assert!(key.len() == NH_KEY_BYTES_PER_MESSAGE);
+    let mut key_u32 = [0u32; NH_KEYS_PER_MESSAGE];
+    for i in 0..NH_KEYS_PER_MESSAGE {
+        key_u32[i] = LittleEndian::read_u32(&key[i * 4..]);
     }
     Hash { key: key_u32 }
 }

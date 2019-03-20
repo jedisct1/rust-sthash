@@ -36,28 +36,28 @@ impl Hash {
             let m3 = cursor.read_u32::<LittleEndian>().unwrap();
 
             s0 = s0.wrapping_add(
-                ((m0.wrapping_add(key_[0])).wrapping_mul(m2.wrapping_add(key_[2]))) as u64,
+                ((m0.wrapping_add(key_[0])) as u64).wrapping_mul(m2.wrapping_add(key_[2]) as u64),
             );
             s1 = s1.wrapping_add(
-                ((m0.wrapping_add(key_[4])).wrapping_mul(m2.wrapping_add(key_[6]))) as u64,
+                ((m0.wrapping_add(key_[4])) as u64).wrapping_mul(m2.wrapping_add(key_[6]) as u64),
             );
             s2 = s2.wrapping_add(
-                ((m0.wrapping_add(key_[8])).wrapping_mul(m2.wrapping_add(key_[10]))) as u64,
+                ((m0.wrapping_add(key_[8])) as u64).wrapping_mul(m2.wrapping_add(key_[10]) as u64),
             );
             s3 = s3.wrapping_add(
-                ((m0.wrapping_add(key_[12])).wrapping_mul(m2.wrapping_add(key_[14]))) as u64,
+                ((m0.wrapping_add(key_[12])) as u64).wrapping_mul(m2.wrapping_add(key_[14]) as u64),
             );
             s0 = s0.wrapping_add(
-                ((m1.wrapping_add(key_[1])).wrapping_mul(m3.wrapping_add(key_[3]))) as u64,
+                ((m1.wrapping_add(key_[1])) as u64).wrapping_mul(m3.wrapping_add(key_[3]) as u64),
             );
             s1 = s1.wrapping_add(
-                ((m1.wrapping_add(key_[5])).wrapping_mul(m3.wrapping_add(key_[7]))) as u64,
+                ((m1.wrapping_add(key_[5])) as u64).wrapping_mul(m3.wrapping_add(key_[7]) as u64),
             );
             s2 = s2.wrapping_add(
-                ((m1.wrapping_add(key_[9])).wrapping_mul(m3.wrapping_add(key_[11]))) as u64,
+                ((m1.wrapping_add(key_[9])) as u64).wrapping_mul(m3.wrapping_add(key_[11]) as u64),
             );
             s3 = s3.wrapping_add(
-                ((m1.wrapping_add(key_[13])).wrapping_mul(m3.wrapping_add(key_[15]))) as u64,
+                ((m1.wrapping_add(key_[13])) as u64).wrapping_mul(m3.wrapping_add(key_[15]) as u64),
             );
 
             key_ = &key_[NH_MESSAGE_UNIT / 4..];
@@ -182,4 +182,20 @@ pub fn new(key: &[u8]) -> Hash {
         key_u32[i] = LittleEndian::read_u32(&key[i * 4..]);
     }
     Hash { key: key_u32 }
+}
+
+#[test]
+fn basic_small() {
+    let key = vec![1; NH_KEY_BYTES_PER_MESSAGE];
+    let h = new(&key);
+    let msg = vec![0; 64];
+    let mut out = Vec::new();
+    h.hash(&mut out, &msg);
+    assert_eq!(
+        out,
+        [
+            8, 16, 24, 32, 24, 16, 8, 0, 8, 16, 24, 32, 24, 16, 8, 0, 8, 16, 24, 32, 24, 16, 8, 0,
+            8, 16, 24, 32, 24, 16, 8, 0
+        ]
+    );
 }

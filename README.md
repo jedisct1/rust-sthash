@@ -11,7 +11,7 @@ A typical use of STHash is to compute keys for locally cached objects.
 The construction relies on:
 
 - A composition of two ϵ-almost-∆-universal functions, NH and Poly1305. See the [Adiantum](https://tosc.iacr.org/index.php/ToSC/article/view/7360/6530) paper for a justification of this composition.
-- The CSHAKE function as a XOF to derive the NH, Poly1305 and finalization keys, and KMAC to produce the final tag.
+- The cSHAKE function as a XOF to derive the NH, Poly1305 and finalization keys, and KMAC to produce the final tag.
 
 The current code is portable, written in safe Rust, and has a lot of room for optimization.
 
@@ -79,7 +79,7 @@ Comparison with HMAC-SHA2 (from `rust-crypto`):
 ## Algorithm
 
 ```text
-Km || Kp || Kn ← CSHAKE128(seed, c1)
+Km || Kp || Kn ← cSHAKE128(seed, c1)
 
 Hp ← Poly1305(Kp, NH(Kn, pad128(M)))
 

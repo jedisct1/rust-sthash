@@ -67,7 +67,6 @@ Comparison with HMAC-SHA2 (from `rust-crypto`):
 | Core i9 2.9Ghz, MacOS                   | 2280             | 95          | 24    |
 | Core i7 2.8Ghz, MacOS                   | 3233             | 134         | 24    |
 | Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM | 6423             | 493         | 13    |
-| ARMv7 (Scaleway C1), Linux              |                  | 7871        |       |
 | Raspberry Pi 3b                         | 49309            | 4944        | 12    |
 
 ## References

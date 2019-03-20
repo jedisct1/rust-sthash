@@ -10,7 +10,7 @@ impl<'t> Hasher<'t> {
         let mut remaining = msg.len();
         let mut off = 0;
         let mut st_poly = poly1305::Hasher::new(poly_key);
-        let st_nh = nh::new(nh_key);
+        let st_nh = nh::Hasher::new(nh_key);
         while remaining > nh::NH_MESSAGE_BYTES {
             st_nh.hash(&mut nh_out, &msg[off..off + nh::NH_MESSAGE_BYTES]);
             if nh_out.len() == nh::NH_OUTPUT_BYTES * NHPOLY_HASHES_PER_POLY {

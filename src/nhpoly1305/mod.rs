@@ -1,6 +1,7 @@
-use super::{nh, poly1305};
+use super::poly1305;
 
 mod avx2;
+mod nh;
 mod portable;
 
 pub const NHPOLY_KEY_BYTES: usize = poly1305::POLY_KEY_BYTES + nh::NH_KEY_BYTES_PER_MESSAGE;

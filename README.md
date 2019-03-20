@@ -90,7 +90,11 @@ H ← KMAC(Km, c2, pad64(|M|) || Hp)
 
 `M` is processed as 1 KB chunks, and the resulting NH hashes are compressed using Poly1305 after 16 hashes have been accumulated (≡ 16 KB of `M` have been processed).
 
-`c1` and `c2` are personalization strings. Values are encoded as little-endian.
+`c1` and `c2` are personalization strings.
+
+`Kp` represents the Poly1305 random secret. In this context, we don't need to perform the final addition with an encrypted nonce.
+
+Values are encoded as little-endian.
 
 ## References
 

@@ -35,7 +35,7 @@ impl Hasher {
     pub fn hash(&self, msg: &[u8]) -> Vec<u8> {
         let nhpoly_key = &self.inner.key.0[32..];
         debug_assert_eq!(nhpoly_key.len(), nhpoly1305::NHPOLY_KEY_BYTES);
-        let st_nhpoly = nhpoly1305::new(nhpoly_key);
+        let st_nhpoly = nhpoly1305::Hasher::new(nhpoly_key);
         let mut poly = [0u8; 16];
         st_nhpoly.hash(&mut poly, &msg);
 

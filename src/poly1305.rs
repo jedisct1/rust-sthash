@@ -134,14 +134,14 @@ impl Hasher {
 
     #[allow(dead_code)]
     pub fn hash(out: &mut [u8; 16], key: [u8; 16], msg: &[u8]) {
-        let mut h = new(key);
+        let mut h = Hasher::new(key);
         h.update(msg);
         h.finalize_noadd(out);
     }
-}
 
-pub fn new(key: [u8; 16]) -> Hasher {
-    let key = Key::new(key);
-    let st = State::default();
-    Hasher { key, st }
+    pub fn new(key: [u8; 16]) -> Hasher {
+        let key = Key::new(key);
+        let st = State::default();
+        Hasher { key, st }
+    }
 }

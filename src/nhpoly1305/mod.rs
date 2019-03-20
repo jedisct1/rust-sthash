@@ -13,11 +13,13 @@ pub struct Hasher<'t> {
 
 impl<'t> Hasher<'t> {
     pub fn hash(&self, out: &mut [u8; 16], msg: &[u8]) {
-        if is_x86_feature_detected!("avx2") {
-            unsafe { self.hash_avx2(out, msg) }
-        } else {
-            self.hash_portable(out, msg)
+        #[cfg(target_arch = "x86_64")]
+        {
+            if is_x86_feature_detected!("avx2") {
+                return unsafe { self.hash_avx2(out, msg) };
+            }
         }
+        self.hash_portable(out, msg)
     }
 
     pub fn new(key: &[u8]) -> Hasher<'_> {

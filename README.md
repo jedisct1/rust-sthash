@@ -15,7 +15,7 @@ The current code is portable, written in safe Rust, and has a lot of room for op
 
 However, even without vectorization, it is already consistently faster than optimized BLAKE2bp implementations (using the `blake2b-simd` crate) on all platforms.
 
-You can expect a 2x to 4x speed increase in future versions.
+You can expect more speed increase in future versions.
 
 ## Usage
 

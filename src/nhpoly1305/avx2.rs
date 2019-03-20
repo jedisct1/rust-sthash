@@ -35,7 +35,4 @@ impl<'t> Hasher<'t> {
         }
         st_poly.finalize_noadd(out);
     }
-
-    #[cfg(not(target_arch = "x86_64"))]
-    pub(crate) fn hash_avx2(&self, _out: &mut [u8; 16], _msg: &[u8]) {}
 }

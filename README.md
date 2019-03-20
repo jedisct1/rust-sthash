@@ -52,27 +52,27 @@ Get your own data with the `cargo bench` command.
 
 Comparison with BLAKE2bp (from `blake2b-simd`):
 
-| Machine                                 | BLAKE2bp (μs) | STHash (μs) | Ratio |
-| --------------------------------------- | ------------- | ----------- | ----- |
-| Core i9 2.9Ghz, MacOS                   | 391           | 95          | 4.1   |
-| Core i7 2.8Ghz, MacOS                   | 607           | 134         | 4.5   |
-| Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM | 2681          | 493         | 5.4   |
-| ARMv7 (Scaleway C1), Linux              | 29402         | 7871        | 3.7   |
-| Raspberry Pi 3b, Linux                  | 19596         | 4944        | 4     |
-| Atom C3955 2.10GHz (Scaleway Start1-XS) | 3709          | 886         | 4.2   |
-| AMD FX-6300, Linux                      | 1812          | 737         | 2.5   |
+| Machine                                        | BLAKE2bp (μs) | STHash (μs) | Ratio |
+| ---------------------------------------------- | ------------- | ----------- | ----- |
+| Core i9 2.9Ghz, MacOS                          | 391           | 95          | 4.1   |
+| Core i7 2.8Ghz, MacOS                          | 607           | 134         | 4.5   |
+| Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM        | 2681          | 493         | 5.4   |
+| ARMv7 (Scaleway C1), Linux                     | 29402         | 7871        | 3.7   |
+| Raspberry Pi 3b, Linux                         | 19596         | 4944        | 4     |
+| Atom C3955 2.10GHz (Scaleway Start1-XS), Linux | 3709          | 886         | 4.2   |
+| AMD FX-6300, Linux                             | 1812          | 737         | 2.5   |
 
 Comparison with HMAC-SHA2 (from `rust-crypto`):
 
-| Machine                                 | HMAC-SHA512 (μs) | STHash (μs) | Ratio |
-| --------------------------------------- | ---------------- | ----------- | ----- |
-| Core i9 2.9Ghz, MacOS                   | 2280             | 95          | 24    |
-| Core i7 2.8Ghz, MacOS                   | 3233             | 134         | 24.1  |
-| Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM | 6423             | 493         | 13    |
-| ARMv7 (Scaleway C1), Linux              | 167670           | 7871        | 21.3  |
-| Raspberry Pi 3b, Linux                  | 49309            | 4944        | 9.9   |
-| Atom C3955 2.10GHz (Scaleway Start1-XS) | 7052             | 886         | 8     |
-| AMD FX-6300, Linux                      | 3700             | 737         | 5     |
+| Machine                                        | HMAC-SHA512 (μs) | STHash (μs) | Ratio |
+| ---------------------------------------------- | ---------------- | ----------- | ----- |
+| Core i9 2.9Ghz, MacOS                          | 2280             | 95          | 24    |
+| Core i7 2.8Ghz, MacOS                          | 3233             | 134         | 24.1  |
+| Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM        | 6423             | 493         | 13    |
+| ARMv7 (Scaleway C1), Linux                     | 167670           | 7871        | 21.3  |
+| Raspberry Pi 3b, Linux                         | 49309            | 4944        | 9.9   |
+| Atom C3955 2.10GHz (Scaleway Start1-XS), Linux | 7052             | 886         | 8     |
+| AMD FX-6300, Linux                             | 3700             | 737         | 5     |
 
 ## References
 

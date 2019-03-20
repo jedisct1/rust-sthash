@@ -17,6 +17,8 @@ sp800-185 = "0.2"
 criterion = "0.2"
 blake2b_simd = "0.4"
 rand = "0.6"
+sha2 = "0.8"
+hmac = "0.7"
 
 [[bench]]
 name = "benchmark"

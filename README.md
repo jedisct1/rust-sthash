@@ -55,6 +55,7 @@ Get your own data with the `cargo bench` command.
 | Core i9 2.9Ghz, MacOS                   | 391           | 95          | 4.1   |
 | Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM | 2681          | 493         | 5.4   |
 | ARMv7 (Scaleway C1), Linux              | 29402         | 7871        | 3.7   |
+| Raspberry Pi 3b                         | 1             | 1           | 1     |
 
 ## References
 

@@ -45,9 +45,24 @@ let h1 = hasher.hash(data);
 let h2 = hasher.hash(data2);
 ```
 
+## Benchmarks
+
+Measurements from the built-in benchmark, hashing 1 Mb data. Rust 1.33.
+Get your own data with the `cargo bench` command.
+
+| Machine                                 | BLAKE2bp (μs) | STHash (μs) | Ratio |
+| --------------------------------------- | ------------- | ----------- | ----- |
+| Core i9 2.9Ghz, MacOS                   | 391           | 95          | 4.1   |
+| Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM | 2681          | 493         | 5.4   |
+| ARMv7 (Scaleway C1), Linux              | 29402         | 7871        | 3.7   |
+
 ## References
 
 - [UMAC: Fast and Secure Message Authentication](https://fastcrypto.org/umac/umac_proc.pdf) (J. Black, S.Halevi, H.Krawczyk, T.Krovetz, and P. Rogaway)
 - [The Poly1305-AES message authentication code](https://cr.yp.to/mac/poly1305-20050329.pdf) (Daniel J. Bernstein)
 - [Adiantum: length-preserving encryption for entry-level processors](https://tosc.iacr.org/index.php/ToSC/article/view/7360/6530) (Paul Crowley and Eric Biggers)
 - [Short-output universal hash functions andtheir use in fast and secure data authentication](https://eprint.iacr.org/2011/116.pdf) (Yannick Seurin)
+
+## Thanks
+
+This crate is based on work by Paul Crowley and Eric Biggers.

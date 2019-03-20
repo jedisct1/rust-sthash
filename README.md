@@ -88,7 +88,7 @@ H ← KMAC(Km, c2, pad64(|M|) || Hp)
 
 `NH` is instantiated with 4 passes and a stride of 2.
 
-`M` is processed as 1 KB chunks, and the resulting NH hashes are compressed to 128 bits using Poly1305 after 16 hashes have been accumulated (≡ 16 KB of `M` have been processed).
+`M` is processed as 1 KB chunks, and the resulting NH hashes are compressed using Poly1305 after 16 hashes have been accumulated (≡ 16 KB of `M` have been processed).
 
 `c1` and `c2` are personalization strings. Values are encoded as little-endian.
 

@@ -58,16 +58,17 @@ Comparison with BLAKE2bp (from `blake2b-simd`):
 | Core i7 2.8Ghz, MacOS                   | 607           | 134         | 4.5   |
 | Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM | 2681          | 493         | 5.4   |
 | ARMv7 (Scaleway C1), Linux              | 29402         | 7871        | 3.7   |
-| Raspberry Pi 3b                         | 19596         | 4944        | 3.96  |
+| Raspberry Pi 3b, Linux                  | 19596         | 4944        | 4     |
 
 Comparison with HMAC-SHA2 (from `rust-crypto`):
 
 | Machine                                 | HMAC-SHA512 (μs) | STHash (μs) | Ratio |
 | --------------------------------------- | ---------------- | ----------- | ----- |
 | Core i9 2.9Ghz, MacOS                   | 2280             | 95          | 24    |
-| Core i7 2.8Ghz, MacOS                   | 3233             | 134         | 24    |
+| Core i7 2.8Ghz, MacOS                   | 3233             | 134         | 24.1  |
 | Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM | 6423             | 493         | 13    |
-| Raspberry Pi 3b                         | 49309            | 4944        | 12    |
+| ARMv7 (Scaleway C1), Linux              | 167670           | 7871        | 21.3  |
+| Raspberry Pi 3b, Linux                  | 49309            | 4944        | 9.9   |
 
 ## References
 

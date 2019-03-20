@@ -4,7 +4,6 @@ use super::*;
 use std::arch::x86_64::*;
 
 impl Hasher {
-    #[allow(dead_code)]
     #[allow(clippy::cast_ptr_alignment)]
     #[target_feature(enable = "avx2")]
     #[inline]

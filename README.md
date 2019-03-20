@@ -1,4 +1,6 @@
-# STHash [![docs.rs](https://docs.rs/sthash/badge.svg)](https://docs.rs/sthash)
+# STHash
+
+[![docs.rs](https://docs.rs/sthash/badge.svg)](https://docs.rs/sthash)
 
 STHash is a fast, keyed, cryptographic hash function designed to process large, possibly untrusted data.
 
@@ -13,9 +15,9 @@ The construction relies on:
 
 The current code is portable, written in safe Rust, and has a lot of room for optimization.
 
-However, even without vectorization, it is already consistently faster than optimized BLAKE2bp implementations (using the `blake2b-simd` crate) on all platforms.
+However, it is already consistently faster than optimized BLAKE2bp implementations (using the `blake2b-simd` crate) on all platforms.
 
-You can expect more speed increase in future versions.
+You can expect future versions to be even faster.
 
 ## Usage
 

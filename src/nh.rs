@@ -70,6 +70,7 @@ impl Hash {
     }
 
     #[allow(dead_code)]
+    #[allow(clippy::cast_ptr_alignment)]
     #[cfg(target_arch = "x86_64")]
     #[target_feature(enable = "avx2")]
     #[inline]
@@ -79,14 +80,6 @@ impl Hash {
         let mut k1 = _mm256_loadu_si256(key_.as_ptr().add(4) as *const __m256i);
         let mut k2;
         let mut k3;
-        let mut t0;
-        let mut t1;
-        let mut t2;
-        let mut t3;
-        let mut t4;
-        let mut t5;
-        let mut t6;
-        let mut t7;
         key_ = &key_[8..];
         let (mut sums0, mut sums1, mut sums2, mut sums3) = (
             _mm256_setzero_si256(),
@@ -97,51 +90,51 @@ impl Hash {
         let mut msg_ = msg;
         let mut remaining = msg_.len();
         while remaining >= 64 {
-            t3 = _mm256_loadu_si256(msg_.as_ptr().add(0) as *const __m256i);
+            let t3 = _mm256_loadu_si256(msg_.as_ptr().add(0) as *const __m256i);
             k2 = _mm256_loadu_si256(key_.as_ptr().add(0) as *const __m256i);
             k3 = _mm256_loadu_si256(key_.as_ptr().add(4) as *const __m256i);
             {
-                t0 = _mm256_add_epi32(k0, t3);
-                t1 = _mm256_add_epi32(k1, t3);
-                t2 = _mm256_add_epi32(k2, t3);
-                t3 = _mm256_add_epi32(k3, t3);
-                t4 = _mm256_shuffle_epi32(t0, 0x10);
-                t0 = _mm256_shuffle_epi32(t0, 0x32);
-                t5 = _mm256_shuffle_epi32(t1, 0x10);
-                t1 = _mm256_shuffle_epi32(t1, 0x32);
-                t6 = _mm256_shuffle_epi32(t2, 0x10);
-                t2 = _mm256_shuffle_epi32(t2, 0x32);
-                t7 = _mm256_shuffle_epi32(t3, 0x10);
-                t3 = _mm256_shuffle_epi32(t3, 0x32);
-                t0 = _mm256_mul_epu32(t0, t4);
-                t1 = _mm256_mul_epu32(t1, t5);
-                t2 = _mm256_mul_epu32(t2, t6);
-                t3 = _mm256_mul_epu32(t3, t7);
+                let t0 = _mm256_add_epi32(k0, t3);
+                let t1 = _mm256_add_epi32(k1, t3);
+                let t2 = _mm256_add_epi32(k2, t3);
+                let t3 = _mm256_add_epi32(k3, t3);
+                let t4 = _mm256_shuffle_epi32(t0, 0x10);
+                let t0 = _mm256_shuffle_epi32(t0, 0x32);
+                let t5 = _mm256_shuffle_epi32(t1, 0x10);
+                let t1 = _mm256_shuffle_epi32(t1, 0x32);
+                let t6 = _mm256_shuffle_epi32(t2, 0x10);
+                let t2 = _mm256_shuffle_epi32(t2, 0x32);
+                let t7 = _mm256_shuffle_epi32(t3, 0x10);
+                let t3 = _mm256_shuffle_epi32(t3, 0x32);
+                let t0 = _mm256_mul_epu32(t0, t4);
+                let t1 = _mm256_mul_epu32(t1, t5);
+                let t2 = _mm256_mul_epu32(t2, t6);
+                let t3 = _mm256_mul_epu32(t3, t7);
                 sums0 = _mm256_add_epi64(sums0, t0);
                 sums1 = _mm256_add_epi64(sums1, t1);
                 sums2 = _mm256_add_epi64(sums2, t2);
                 sums3 = _mm256_add_epi64(sums3, t3);
             }
-            t3 = _mm256_loadu_si256(msg_.as_ptr().add(8) as *const __m256i);
+            let t3 = _mm256_loadu_si256(msg_.as_ptr().add(32) as *const __m256i);
             k0 = _mm256_loadu_si256(key_.as_ptr().add(8) as *const __m256i);
             k1 = _mm256_loadu_si256(key_.as_ptr().add(12) as *const __m256i);
             {
-                t0 = _mm256_add_epi32(k2, t3);
-                t1 = _mm256_add_epi32(k3, t3);
-                t2 = _mm256_add_epi32(k0, t3);
-                t3 = _mm256_add_epi32(k1, t3);
-                t4 = _mm256_shuffle_epi32(t0, 0x10);
-                t0 = _mm256_shuffle_epi32(t0, 0x32);
-                t5 = _mm256_shuffle_epi32(t1, 0x10);
-                t1 = _mm256_shuffle_epi32(t1, 0x32);
-                t6 = _mm256_shuffle_epi32(t2, 0x10);
-                t2 = _mm256_shuffle_epi32(t2, 0x32);
-                t7 = _mm256_shuffle_epi32(t3, 0x10);
-                t3 = _mm256_shuffle_epi32(t3, 0x32);
-                t0 = _mm256_mul_epu32(t0, t4);
-                t1 = _mm256_mul_epu32(t1, t5);
-                t2 = _mm256_mul_epu32(t2, t6);
-                t3 = _mm256_mul_epu32(t3, t7);
+                let t0 = _mm256_add_epi32(k2, t3);
+                let t1 = _mm256_add_epi32(k3, t3);
+                let t2 = _mm256_add_epi32(k0, t3);
+                let t3 = _mm256_add_epi32(k1, t3);
+                let t4 = _mm256_shuffle_epi32(t0, 0x10);
+                let t0 = _mm256_shuffle_epi32(t0, 0x32);
+                let t5 = _mm256_shuffle_epi32(t1, 0x10);
+                let t1 = _mm256_shuffle_epi32(t1, 0x32);
+                let t6 = _mm256_shuffle_epi32(t2, 0x10);
+                let t2 = _mm256_shuffle_epi32(t2, 0x32);
+                let t7 = _mm256_shuffle_epi32(t3, 0x10);
+                let t3 = _mm256_shuffle_epi32(t3, 0x32);
+                let t0 = _mm256_mul_epu32(t0, t4);
+                let t1 = _mm256_mul_epu32(t1, t5);
+                let t2 = _mm256_mul_epu32(t2, t6);
+                let t3 = _mm256_mul_epu32(t3, t7);
                 sums0 = _mm256_add_epi64(sums0, t0);
                 sums1 = _mm256_add_epi64(sums1, t1);
                 sums2 = _mm256_add_epi64(sums2, t2);
@@ -153,19 +146,19 @@ impl Hash {
         }
         assert_eq!(remaining, 0);
 
-        t0 = _mm256_unpacklo_epi64(sums0, sums1);
-        t1 = _mm256_unpacklo_epi64(sums0, sums1);
-        t2 = _mm256_unpacklo_epi64(sums2, sums3);
-        t3 = _mm256_unpacklo_epi64(sums2, sums3);
+        let t0 = _mm256_unpacklo_epi64(sums0, sums1);
+        let t1 = _mm256_unpackhi_epi64(sums0, sums1);
+        let t2 = _mm256_unpacklo_epi64(sums2, sums3);
+        let t3 = _mm256_unpackhi_epi64(sums2, sums3);
 
-        t4 = _mm256_inserti128_si256(t0, _mm256_castsi256_si128(t2), 0x1);
-        t5 = _mm256_inserti128_si256(t1, _mm256_castsi256_si128(t3), 0x1);
-        t0 = _mm256_permute2x128_si256(t0, t2, 0x31);
-        t1 = _mm256_permute2x128_si256(t1, t3, 0x31);
+        let t4 = _mm256_inserti128_si256(t0, _mm256_castsi256_si128(t2), 0x1);
+        let t5 = _mm256_inserti128_si256(t1, _mm256_castsi256_si128(t3), 0x1);
+        let t0 = _mm256_permute2x128_si256(t0, t2, 0x31);
+        let t1 = _mm256_permute2x128_si256(t1, t3, 0x31);
 
-        t4 = _mm256_add_epi64(t4, t5);
-        t0 = _mm256_add_epi64(t0, t1);
-        t0 = _mm256_add_epi64(t0, t4);
+        let t4 = _mm256_add_epi64(t4, t5);
+        let t0 = _mm256_add_epi64(t0, t1);
+        let t0 = _mm256_add_epi64(t0, t4);
 
         let idx = out.len();
         out.reserve(32);
@@ -188,14 +181,30 @@ pub fn new(key: &[u8]) -> Hash {
 fn basic_small() {
     let key = vec![1; NH_KEY_BYTES_PER_MESSAGE];
     let h = new(&key);
-    let msg = vec![0; 64];
+    let msg = vec![42; 64];
     let mut out = Vec::new();
     h.hash(&mut out, &msg);
     assert_eq!(
         out,
         [
-            8, 16, 24, 32, 24, 16, 8, 0, 8, 16, 24, 32, 24, 16, 8, 0, 8, 16, 24, 32, 24, 16, 8, 0,
-            8, 16, 24, 32, 24, 16, 8, 0
+            200, 201, 203, 205, 63, 62, 60, 58, 200, 201, 203, 205, 63, 62, 60, 58, 200, 201, 203,
+            205, 63, 62, 60, 58, 200, 201, 203, 205, 63, 62, 60, 58
         ]
     );
+}
+
+#[cfg(target_arch = "x86_64")]
+#[test]
+fn test_avx2() {
+    use rand::{thread_rng, RngCore};
+    let mut key = vec![1; NH_KEY_BYTES_PER_MESSAGE];
+    thread_rng().fill_bytes(&mut key);
+    let h = new(&key);
+    let mut msg = vec![0; 256];
+    thread_rng().fill_bytes(&mut msg);
+    let mut out = Vec::new();
+    h.hash(&mut out, &msg);
+    let mut out_avx2 = Vec::new();
+    unsafe { h.hash_avx2(&mut out_avx2, &msg) };
+    assert_eq!(out, out_avx2);
 }

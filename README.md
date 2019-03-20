@@ -11,7 +11,7 @@ A typical use of STHash is to compute keys for locally cached objects.
 The construction relies on:
 
 - A composition of two ϵ-almost-∆-universal functions, NH and Poly1305. See the [Adiantum](https://tosc.iacr.org/index.php/ToSC/article/view/7360/6530) paper for a justification of this composition.
-- The KMAC keyed hash function, both to produce the final tag and as a XOF to derive the NH, Poly1305 and finalization keys.
+- The CSHAKE function as a XOF to derive the NH, Poly1305 and finalization keys, and KMAC to produce the final tag.
 
 The current code is portable, written in safe Rust, and has a lot of room for optimization.
 
@@ -75,6 +75,22 @@ Comparison with HMAC-SHA2 (from `rust-crypto`):
 | Raspberry Pi 3b, Linux                         | 49309            | 4944        | 9.9   |
 | Atom C3955 2.10GHz (Scaleway Start1-XS), Linux | 7052             | 886         | 8     |
 | AMD FX-6300, Linux                             | 3700             | 737         | 5     |
+
+## Algorithm
+
+```text
+Km || Kp || Kn ← CSHAKE128(seed, c1)
+
+Hp ← Poly1305(Kp, NH(Kn(pad128(M))))
+
+H ← KMAC(Km, c2, pad64(|M|) || Hp)
+```
+
+`NH` is instantiated with 4 passes and a stride of 2.
+
+`M` is processed as 1 KB chunks, and the resulting NH hashes are compressed to 128 bits using Poly1305 after 16 hashes have been accumulated (≡ 16 KB of `M` have been processed).
+
+`c1` and `c2` are personalization strings. Values are encoded as little-endian.
 
 ## References
 

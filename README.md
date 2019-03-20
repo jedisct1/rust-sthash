@@ -15,7 +15,7 @@ The construction relies on:
 
 The current code is portable, written in safe Rust, and has a lot of room for optimization.
 
-However, it is already consistently faster than optimized BLAKE2bp implementations (using the `blake2b-simd` crate) on all platforms.
+However, it is already consistently faster than optimized BLAKE2bp implementations on all platforms.
 
 You can expect future versions to be even faster.
 
@@ -50,12 +50,25 @@ let h2 = hasher.hash(data2);
 Measurements from the built-in benchmark, hashing 1 Mb data. Rust 1.33.
 Get your own data with the `cargo bench` command.
 
+Comparison with BLAKE2bp (from `blake2b-simd`):
+
 | Machine                                 | BLAKE2bp (μs) | STHash (μs) | Ratio |
 | --------------------------------------- | ------------- | ----------- | ----- |
 | Core i9 2.9Ghz, MacOS                   | 391           | 95          | 4.1   |
+| Core i7 2.8Ghz, MacOS                   | 607           | 134         | 4.5   |
 | Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM | 2681          | 493         | 5.4   |
 | ARMv7 (Scaleway C1), Linux              | 29402         | 7871        | 3.7   |
 | Raspberry Pi 3b                         | 19596         | 4944        | 3.96  |
+
+Comparison with HMAC-SHA2 (from `rust-crypto`):
+
+| Machine                                 | HMAC-SHA512 (μs) | STHash (μs) | Ratio |
+| --------------------------------------- | ---------------- | ----------- | ----- |
+| Core i9 2.9Ghz, MacOS                   | 2280             | 95          | 24    |
+| Core i7 2.8Ghz, MacOS                   | 3233             | 134         | 24    |
+| Xeon CPU E3-1245 V2 3.40GHz, OpenBSD VM | 6423             | 493         | 13    |
+| ARMv7 (Scaleway C1), Linux              |                  | 7871        | 3.7   |
+| Raspberry Pi 3b                         |                  | 4944        | 3.96  |
 
 ## References
 

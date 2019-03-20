@@ -14,6 +14,7 @@ pub const NH_KEYS_PER_MESSAGE: usize = NH_MESSAGE_BYTES;
 pub const NH_KEY_BYTES_PER_MESSAGE: usize = 4 * NH_KEYS_PER_MESSAGE;
 pub const NH_OUTPUT_BYTES: usize = 8 * 4;
 
+#[repr(align(32))]
 pub struct Hasher {
     key: [u32; NH_KEYS_PER_MESSAGE],
 }

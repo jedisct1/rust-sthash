@@ -6,7 +6,7 @@ use {hmac, sha2};
 use blake2b_simd::blake2bp;
 use criterion::Criterion;
 use hmac::{Hmac, Mac};
-use sha2::Sha512;
+use sha2::{Sha256, Sha512};
 use sthash::*;
 
 fn hash(hasher: &Hasher, msg: &[u8]) -> Vec<u8> {
@@ -26,6 +26,12 @@ fn hash_blake2b(msg: &[u8]) -> blake2b_simd::Hash {
 
 fn hash_sha512(msg: &[u8]) -> Vec<u8> {
     let mut mac = Hmac::<Sha512>::new_varkey(b"key").unwrap();
+    mac.input(msg);
+    mac.result().code().as_slice().to_vec()
+}
+
+fn hash_sha256(msg: &[u8]) -> Vec<u8> {
+    let mut mac = Hmac::<Sha256>::new_varkey(b"key").unwrap();
     mac.input(msg);
     mac.result().code().as_slice().to_vec()
 }
@@ -53,6 +59,11 @@ fn criterion_benchmark(c: &mut Criterion) {
     c.bench_function("HMAC-SHA512 1 Mo", |b| {
         let msg = vec![0x69; 1_000_000];
         b.iter(|| hash_sha512(&msg))
+    });
+
+    c.bench_function("HMAC-SHA256 1 Mo", |b| {
+        let msg = vec![0x69; 1_000_000];
+        b.iter(|| hash_sha256(&msg))
     });
 }
 

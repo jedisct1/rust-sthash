@@ -1,7 +1,7 @@
 use super::nhpoly1305;
 use byteorder::{ByteOrder, LittleEndian};
-use sp800_185::{CShake, KMac};
 use std::rc::Rc;
+use tiny_keccak::{CShake, Hasher as kHasher, Kmac};
 
 const KMAC_KEY_BYTES: usize = 32;
 const KEY_BYTES: usize = KMAC_KEY_BYTES + nhpoly1305::NHPOLY_KEY_BYTES;
@@ -21,7 +21,7 @@ pub struct Key(Vec<u8>);
 
 struct HashInner {
     key: Key,
-    st_kmac: KMac,
+    st_kmac: Kmac,
 }
 
 /// A `Hasher` can be reused to compute multiple hashes using the same key
@@ -59,7 +59,7 @@ impl Hasher {
     pub fn new(key: Key, personalization: Option<&[u8]>) -> Hasher {
         debug_assert_eq!(key.0.len(), KEY_BYTES);
         let kmac_key = &key.0[..KMAC_KEY_BYTES];
-        let st_kmac = KMac::new_kmac128(kmac_key, personalization.unwrap_or_default());
+        let st_kmac = Kmac::v128(kmac_key, personalization.unwrap_or_default());
         Hasher {
             inner: Rc::new(HashInner { key, st_kmac }),
         }
@@ -77,8 +77,7 @@ impl Key {
         if seed.len() < MIN_SEED_BYTES {
             panic!("Seed is too short");
         }
-        let mut st_cshake =
-            CShake::new_cshake128(b"sthash key", personalization.unwrap_or_default());
+        let mut st_cshake = CShake::v128(b"sthash key", personalization.unwrap_or_default());
         st_cshake.update(seed);
         let mut key = vec![0; KEY_BYTES];
         st_cshake.finalize(&mut key);

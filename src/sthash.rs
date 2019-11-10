@@ -1,7 +1,7 @@
 use super::nhpoly1305;
 use byteorder::{ByteOrder, LittleEndian};
 use std::rc::Rc;
-use tiny_keccak::{CShake, Hasher as kHasher, Kmac};
+use tiny_keccak::{CShake, Hasher as _, Kmac};
 
 const KMAC_KEY_BYTES: usize = 32;
 const KEY_BYTES: usize = KMAC_KEY_BYTES + nhpoly1305::NHPOLY_KEY_BYTES;

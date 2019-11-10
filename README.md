@@ -47,7 +47,7 @@ let h2 = hasher.hash(data2);
 
 ## Benchmarks
 
-Measurements from the built-in benchmark, hashing 1 Mb data. Rust 1.33.
+Measurements from the built-in benchmark, hashing 1 Mb data. Rust 1.39.
 Get your own data with the `cargo bench` command.
 
 Comparison with BLAKE2bp (from `blake2b-simd`):

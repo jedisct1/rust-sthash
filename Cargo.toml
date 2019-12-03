@@ -11,7 +11,7 @@ repository = "https://github.com/jedisct1/rust-sthash"
 
 [dependencies]
 byteorder = "1.3"
-tiny-keccak = { version = "=2.0.0-alpha", features = ["cshake", "kmac"] }
+tiny-keccak = { version = "=2.0.1", features = ["cshake", "kmac"] }
 
 [dev-dependencies]
 criterion = "0.3"

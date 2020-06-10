@@ -1,13 +1,10 @@
-#[macro_use]
-extern crate criterion;
 use blake2b_simd;
-use {hmac, sha2};
-
 use blake2b_simd::blake2bp;
-use criterion::Criterion;
+use criterion::{criterion_group, criterion_main, Criterion};
 use hmac::{Hmac, Mac};
 use sha2::{Sha256, Sha512};
 use sthash::*;
+use {hmac, sha2};
 
 fn hash(hasher: &Hasher, msg: &[u8]) -> Vec<u8> {
     hasher.hash(msg)

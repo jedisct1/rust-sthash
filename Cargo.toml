@@ -1,6 +1,6 @@
 [package]
 name = "sthash"
-version = "0.2.4"
+version = "0.2.5"
 authors = ["Frank Denis <github@pureftpd.org>"]
 edition = "2018"
 description = "A very fast cryptographic hash function for large data."
@@ -17,8 +17,8 @@ tiny-keccak = { version = "=2.0.1", features = ["cshake", "kmac"] }
 criterion = "0.3"
 blake2b_simd = "0.5"
 rand = "0.7"
-sha2 = "0.8"
-hmac = "0.7"
+sha2 = "0.9"
+hmac = "0.8"
 
 [[bench]]
 name = "benchmark"

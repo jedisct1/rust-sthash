@@ -18,7 +18,7 @@ criterion = "0.3"
 blake2b_simd = "0.5"
 rand = "0.7"
 sha2 = "0.9"
-hmac = "0.8"
+hmac = "0.9"
 
 [[bench]]
 name = "benchmark"

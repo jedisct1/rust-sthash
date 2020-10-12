@@ -4,7 +4,7 @@
 
 STHash is a fast, keyed, cryptographic hash function designed to process large, possibly untrusted data.
 
-The flipside is that using a secret key (or, in this implementation, a secret seed) is mandatory. This is not as a general-purpose hash function.
+The flipside is that using a secret key (or, in this implementation, a secret seed) is mandatory. This is not a general-purpose hash function.
 
 A typical use of STHash is to compute keys for locally cached objects.
 

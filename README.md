@@ -15,7 +15,7 @@ The construction relies on:
 
 The current code is portable, written in safe Rust, and has a lot of room for optimization.
 
-However, it is already consistently faster than optimized BLAKE2bp implementations on all platforms.
+However, it is already consistently faster than optimized BLAKE2bp and BLAKE3 implementations on all common platforms.
 
 You can expect future versions to be even faster.
 
@@ -47,10 +47,16 @@ let h2 = hasher.hash(data2);
 
 ## Benchmarks
 
-Measurements from the built-in benchmark, hashing 1 Mb data. Rust 1.39.
+Measurements from the built-in benchmark, hashing 1 Mb data. 
 Get your own data with the `cargo bench` command.
 
-Comparison with BLAKE2bp (from `blake2b-simd`):
+Comparison with BLAKE3 (from `blake3`), Rust 1.48.
+
+| Machine               | BLAKE3 (μs) | STHash (μs) | Ratio |
+| --------------------- | ----------- | ----------- | ----- |
+| Core i9 2.9Ghz, MacOS | 226         | 86          | 2.6   |
+
+Comparison with BLAKE2bp (from `blake2b-simd`), Rust 1.39.
 
 | Machine                                        | BLAKE2bp (μs) | STHash (μs) | Ratio |
 | ---------------------------------------------- | ------------- | ----------- | ----- |
@@ -65,7 +71,7 @@ Comparison with BLAKE2bp (from `blake2b-simd`):
 | Atom C3955 2.10GHz (Scaleway Start1-XS), Linux | 3709          | 886         | 4.2   |
 | AMD FX-6300, CentOS Linux                      | 1812          | 737         | 2.5   |
 
-Comparison with HMAC-SHA2 (from `rust-crypto`):
+Comparison with HMAC-SHA2 (from `rust-crypto`), Rust 1.39.
 
 | Machine                                        | HMAC-SHA512 (μs) | STHash (μs) | Ratio |
 | ---------------------------------------------- | ---------------- | ----------- | ----- |

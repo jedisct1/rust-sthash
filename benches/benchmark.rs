@@ -10,6 +10,10 @@ fn hash(hasher: &Hasher, msg: &[u8]) -> Vec<u8> {
     hasher.hash(msg)
 }
 
+fn hash_blake3(msg: &[u8]) -> blake3::Hash {
+    blake3::keyed_hash(&[0x42u8; 32], msg)
+}
+
 fn hash_blake2bp(msg: &[u8]) -> blake2b_simd::Hash {
     blake2bp::Params::new().to_state().update(msg).finalize()
 }
@@ -30,7 +34,7 @@ fn hash_sha512(msg: &[u8]) -> Vec<u8> {
 fn hash_sha256(msg: &[u8]) -> Vec<u8> {
     let mut mac = Hmac::<Sha256>::new_varkey(b"key").unwrap();
     mac.update(msg);
-    mac.finalize().into_bytes().to_vec();
+    mac.finalize().into_bytes().to_vec()
 }
 
 fn criterion_benchmark(c: &mut Criterion) {
@@ -41,6 +45,11 @@ fn criterion_benchmark(c: &mut Criterion) {
 
         let msg = vec![0x69; 1_000_000];
         b.iter(|| hash(&hasher, &msg))
+    });
+
+    c.bench_function("BLAKE3 1 Mo", |b| {
+        let msg = vec![0x69; 1_000_000];
+        b.iter(|| hash_blake3(&msg))
     });
 
     c.bench_function("BLAKE2bp 1 Mo", |b| {

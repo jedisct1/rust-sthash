@@ -52,9 +52,10 @@ Get your own data with the `cargo bench` command.
 
 Comparison with BLAKE3 (from `blake3`), Rust 1.48.
 
-| Machine               | BLAKE3 (μs) | STHash (μs) | Ratio |
-| --------------------- | ----------- | ----------- | ----- |
-| Core i9 2.9Ghz, MacOS | 226         | 86          | 2.6   |
+| Machine                                | BLAKE3 (μs) | STHash (μs) | Ratio |
+| -------------------------------------- | ----------- | ----------- | ----- |
+| Core i9 2.9Ghz, MacOS                  | 226         | 86          | 2.6   |
+| ARMv8 (Freebox Delta), Debian Linux VM | 3729        | 646         | 5.8   |
 
 Comparison with BLAKE2bp (from `blake2b-simd`), Rust 1.39.
 

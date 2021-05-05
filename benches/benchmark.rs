@@ -1,10 +1,8 @@
-use blake2b_simd;
 use blake2b_simd::blake2bp;
 use criterion::{criterion_group, criterion_main, Criterion};
 use hmac::{Hmac, Mac, NewMac};
 use sha2::{Sha256, Sha512};
 use sthash::*;
-use {hmac, sha2};
 
 fn hash(hasher: &Hasher, msg: &[u8]) -> Vec<u8> {
     hasher.hash(msg)
@@ -26,13 +24,13 @@ fn hash_blake2b(msg: &[u8]) -> blake2b_simd::Hash {
 }
 
 fn hash_sha512(msg: &[u8]) -> Vec<u8> {
-    let mut mac = Hmac::<Sha512>::new_varkey(b"key").unwrap();
+    let mut mac = Hmac::<Sha512>::new_from_slice(b"key").unwrap();
     mac.update(msg);
     mac.finalize().into_bytes().to_vec()
 }
 
 fn hash_sha256(msg: &[u8]) -> Vec<u8> {
-    let mut mac = Hmac::<Sha256>::new_varkey(b"key").unwrap();
+    let mut mac = Hmac::<Sha256>::new_from_slice(b"key").unwrap();
     mac.update(msg);
     mac.finalize().into_bytes().to_vec()
 }

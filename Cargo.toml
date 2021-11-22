@@ -15,7 +15,7 @@ tiny-keccak = { version = "2.0.2", features = ["cshake", "kmac"] }
 
 [dev-dependencies]
 criterion = { version = "0.3", features = ["html_reports"] }
-blake2b_simd = "0.5"
+blake2b_simd = "1.0"
 blake3 = "1.0"
 rand = "0.8"
 sha2 = "0.9"

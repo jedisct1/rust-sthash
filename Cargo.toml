@@ -18,7 +18,7 @@ criterion = { version = "0.3", features = ["html_reports"] }
 blake2b_simd = "1.0"
 blake3 = "1.0"
 rand = "0.8"
-sha2 = "0.9"
+sha2 = "0.10"
 hmac = "0.11"
 
 [[bench]]

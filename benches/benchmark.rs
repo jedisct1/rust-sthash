@@ -1,6 +1,6 @@
 use blake2b_simd::blake2bp;
 use criterion::{criterion_group, criterion_main, Criterion};
-use hmac::{Hmac, Mac, NewMac};
+use hmac::{Hmac, Mac};
 use sha2::{Sha256, Sha512};
 use sthash::*;
 

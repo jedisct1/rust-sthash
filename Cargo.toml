@@ -1,10 +1,10 @@
 [package]
 name = "sthash"
-version = "0.2.11"
+version = "0.2.12"
 authors = ["Frank Denis <github@pureftpd.org>"]
 edition = "2018"
 description = "A very fast cryptographic hash function for large data."
-keywords = ["crypto","cryptography","hash"]
+keywords = ["crypto", "cryptography", "hash"]
 categories = ["algorithms", "cryptography"]
 license = "ISC"
 repository = "https://github.com/jedisct1/rust-sthash"
@@ -18,8 +18,8 @@ criterion = { version = "0.3", features = ["html_reports"] }
 blake2b_simd = "1.0"
 blake3 = "1.0"
 rand = "0.8"
-sha2 = "0.9"
-hmac = "0.11"
+sha2 = "0.10"
+hmac = "0.12"
 
 [[bench]]
 name = "benchmark"

@@ -1,6 +1,6 @@
 use super::nhpoly1305;
 use byteorder::{ByteOrder, LittleEndian};
-use std::rc::Rc;
+
 use tiny_keccak::{CShake, Hasher as _, Kmac};
 
 const KMAC_KEY_BYTES: usize = 32;
@@ -19,6 +19,7 @@ pub const MIN_SEED_BYTES: usize = 16;
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Key(Vec<u8>);
 
+#[derive(Clone)]
 struct HashInner {
     key: Key,
     st_kmac: Kmac,
@@ -27,7 +28,7 @@ struct HashInner {
 /// A `Hasher` can be reused to compute multiple hashes using the same key
 #[derive(Clone)]
 pub struct Hasher {
-    inner: Rc<HashInner>,
+    inner: HashInner,
 }
 
 impl Hasher {
@@ -37,7 +38,7 @@ impl Hasher {
         debug_assert_eq!(nhpoly_key.len(), nhpoly1305::NHPOLY_KEY_BYTES);
         let st_nhpoly = nhpoly1305::Hasher::new(nhpoly_key);
         let mut poly = [0u8; 16];
-        st_nhpoly.hash(&mut poly, &msg);
+        st_nhpoly.hash(&mut poly, msg);
 
         let mut msg_len_u8 = [0u8; 8];
         LittleEndian::write_u64(&mut msg_len_u8, msg.len() as u64);
@@ -61,7 +62,7 @@ impl Hasher {
         let kmac_key = &key.0[..KMAC_KEY_BYTES];
         let st_kmac = Kmac::v128(kmac_key, personalization.unwrap_or_default());
         Hasher {
-            inner: Rc::new(HashInner { key, st_kmac }),
+            inner: HashInner { key, st_kmac },
         }
     }
 }

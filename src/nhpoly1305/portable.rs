@@ -26,7 +26,7 @@ impl<'t> Hasher<'t> {
             let mut unit = [0u8; nh::NH_MESSAGE_BYTES];
             let padded = &mut unit[..padded_len];
             padded[..remaining].copy_from_slice(&msg[off..]);
-            st_nh.hash(&mut nh_out, &padded);
+            st_nh.hash(&mut nh_out, padded);
         }
         if !nh_out.is_empty() {
             st_poly.update(&nh_out);

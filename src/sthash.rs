@@ -37,7 +37,7 @@ impl Hasher {
         debug_assert_eq!(nhpoly_key.len(), nhpoly1305::NHPOLY_KEY_BYTES);
         let st_nhpoly = nhpoly1305::Hasher::new(nhpoly_key);
         let mut poly = [0u8; 16];
-        st_nhpoly.hash(&mut poly, &msg);
+        st_nhpoly.hash(&mut poly, msg);
 
         let mut msg_len_u8 = [0u8; 8];
         LittleEndian::write_u64(&mut msg_len_u8, msg.len() as u64);

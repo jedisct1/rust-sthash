@@ -1,3 +1,5 @@
+use rayon::iter::ParallelIterator;
+
 use crate::sthash::*;
 
 #[test]
@@ -37,4 +39,28 @@ fn large() {
             111, 186, 86, 150, 73, 137, 12, 42, 117, 217, 69, 154, 74, 231
         ]
     );
+}
+
+#[test]
+fn parallel() {
+    use rayon::iter::repeatn;
+
+    let mut seed = [0; SEED_BYTES];
+    for i in 0..SEED_BYTES {
+        seed[i] = i as u8;
+    }
+    let key = Key::from_seed(&seed, Some(b"test suite"));
+    let hasher = Hasher::new(key, None);
+    let block = b"test data 1";
+    // Hash blocks in parallel
+    let success = repeatn(block, 1000)
+        // map_with clones the hasher for each thread
+        .map_with(hasher, |h, b| h.hash(b))
+        .all(|res| {
+            res == [
+                207, 49, 8, 127, 113, 64, 236, 115, 32, 134, 137, 211, 231, 179, 55, 152, 157, 237,
+                108, 170, 124, 221, 19, 27, 204, 147, 234, 183, 207, 229, 205, 115,
+            ]
+        });
+    assert!(success);
 }

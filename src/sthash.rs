@@ -19,22 +19,17 @@ pub const MIN_SEED_BYTES: usize = 16;
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Key(Vec<u8>);
 
-#[derive(Clone)]
-struct HashInner {
-    key: Key,
-    st_kmac: Kmac,
-}
-
 /// A `Hasher` can be reused to compute multiple hashes using the same key
 #[derive(Clone)]
 pub struct Hasher {
-    inner: HashInner,
+    key: Key,
+    st_kmac: Kmac,
 }
 
 impl Hasher {
     /// Returns an `OUTPUT_BYTES` hash of the message
     pub fn hash(&self, msg: &[u8]) -> Vec<u8> {
-        let nhpoly_key = &self.inner.key.0[32..];
+        let nhpoly_key = &self.key.0[32..];
         debug_assert_eq!(nhpoly_key.len(), nhpoly1305::NHPOLY_KEY_BYTES);
         let st_nhpoly = nhpoly1305::Hasher::new(nhpoly_key);
         let mut poly = [0u8; 16];
@@ -43,7 +38,7 @@ impl Hasher {
         let mut msg_len_u8 = [0u8; 8];
         LittleEndian::write_u64(&mut msg_len_u8, msg.len() as u64);
 
-        let mut st_kmac = self.inner.st_kmac.clone();
+        let mut st_kmac = self.st_kmac.clone();
         st_kmac.update(&msg_len_u8);
         st_kmac.update(&poly);
         let mut h = vec![0u8; 32];
@@ -61,9 +56,7 @@ impl Hasher {
         debug_assert_eq!(key.0.len(), KEY_BYTES);
         let kmac_key = &key.0[..KMAC_KEY_BYTES];
         let st_kmac = Kmac::v128(kmac_key, personalization.unwrap_or_default());
-        Hasher {
-            inner: HashInner { key, st_kmac },
-        }
+        Hasher { key, st_kmac }
     }
 }
 

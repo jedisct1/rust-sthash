@@ -1,7 +1,7 @@
-use super::*;
-
 #[cfg(target_arch = "x86_64")]
 use std::arch::x86_64::*;
+
+use super::*;
 
 impl Hasher {
     #[allow(clippy::cast_ptr_alignment)]

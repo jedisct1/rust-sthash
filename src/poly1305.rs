@@ -1,5 +1,6 @@
-use byteorder::{ByteOrder, LittleEndian, ReadBytesExt};
 use std::io::Cursor;
+
+use byteorder::{ByteOrder, LittleEndian, ReadBytesExt};
 
 pub const POLY_KEY_BYTES: usize = 16;
 

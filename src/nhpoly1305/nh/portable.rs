@@ -1,6 +1,8 @@
-use super::*;
-use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
 use std::io::Cursor;
+
+use byteorder::{LittleEndian, ReadBytesExt, WriteBytesExt};
+
+use super::*;
 
 impl Hasher {
     #[inline(always)]

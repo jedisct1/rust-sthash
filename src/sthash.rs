@@ -1,4 +1,4 @@
-use std::rc::Rc;
+use std::sync::Arc;
 
 use byteorder::{ByteOrder, LittleEndian};
 use tiny_keccak::{CShake, Hasher as _, Kmac};
@@ -29,7 +29,7 @@ struct HashInner {
 /// A `Hasher` can be reused to compute multiple hashes using the same key
 #[derive(Clone)]
 pub struct Hasher {
-    inner: Rc<HashInner>,
+    inner: Arc<HashInner>,
 }
 
 impl Hasher {
@@ -63,7 +63,7 @@ impl Hasher {
         let kmac_key = &key.0[..KMAC_KEY_BYTES];
         let st_kmac = Kmac::v128(kmac_key, personalization.unwrap_or_default());
         Hasher {
-            inner: Rc::new(HashInner { key, st_kmac }),
+            inner: Arc::new(HashInner { key, st_kmac }),
         }
     }
 }

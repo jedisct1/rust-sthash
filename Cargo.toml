@@ -1,11 +1,12 @@
 [package]
 name = "sthash"
-version = "0.2.12"
+version = "0.2.13"
 authors = ["Frank Denis <github@pureftpd.org>"]
 edition = "2018"
 description = "A very fast cryptographic hash function for large data."
 keywords = ["crypto", "cryptography", "hash"]
 categories = ["algorithms", "cryptography"]
+readme = "README.md"
 license = "ISC"
 repository = "https://github.com/jedisct1/rust-sthash"
 

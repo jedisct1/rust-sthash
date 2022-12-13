@@ -50,10 +50,12 @@ let h2 = hasher.hash(data2);
 Measurements from the built-in benchmark, hashing 1 Mb data. 
 Get your own data with the `cargo bench` command.
 
-Comparison with BLAKE3 (from `blake3`), Rust 1.48.
+Comparison with BLAKE3 (from `blake3`), Rust 1.67.
 
 | Machine                                | BLAKE3 (μs) | STHash (μs) | Ratio |
 | -------------------------------------- | ----------- | ----------- | ----- |
+| Apple M1, MacOS                        | 646         | 119         | 5.4   |
+| AMD Zen2, Ubuntu                       | 71          | 212         | 3.0   |
 | Core i9 2.9Ghz, MacOS                  | 226         | 86          | 2.6   |
 | ARMv8 (Freebox Delta), Debian Linux VM | 3729        | 646         | 5.8   |
 

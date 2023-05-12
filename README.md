@@ -50,16 +50,17 @@ let h2 = hasher.hash(data2);
 Measurements from the built-in benchmark, hashing 1 Mb data. 
 Get your own data with the `cargo bench` command.
 
-Comparison with BLAKE3 (from `blake3`), Rust 1.67.
+Comparison with BLAKE3 (from `blake3`)
 
 | Machine                                | BLAKE3 (μs) | STHash (μs) | Ratio |
 | -------------------------------------- | ----------- | ----------- | ----- |
 | Apple M1, MacOS                        | 646         | 119         | 5.4   |
 | AMD Zen2, Ubuntu                       | 212         | 71          | 3.0   |
+| AMD Zen4 (Ryzen 7700), Ubuntu          | 148         | 61          | 2.4   |
 | Core i9 2.9Ghz, MacOS                  | 226         | 86          | 2.6   |
 | ARMv8 (Freebox Delta), Debian Linux VM | 3729        | 646         | 5.8   |
 
-Comparison with BLAKE2bp (from `blake2b-simd`), Rust 1.39.
+Comparison with BLAKE2bp (from `blake2b-simd`)
 
 | Machine                                        | BLAKE2bp (μs) | STHash (μs) | Ratio |
 | ---------------------------------------------- | ------------- | ----------- | ----- |
@@ -73,8 +74,9 @@ Comparison with BLAKE2bp (from `blake2b-simd`), Rust 1.39.
 | ARMv7 (Raspberry Pi 3b), Raspbian              | 19596         | 4944        | 4     |
 | Atom C3955 2.10GHz (Scaleway Start1-XS), Linux | 3709          | 886         | 4.2   |
 | AMD FX-6300, CentOS Linux                      | 1812          | 737         | 2.5   |
+| AMD Zen4 (Ryzen 7700), Ubuntu                  | 278           | 61          | 4.5   |
 
-Comparison with HMAC-SHA2 (from `rust-crypto`), Rust 1.39.
+Comparison with HMAC-SHA2 (from `rust-crypto`)
 
 | Machine                                        | HMAC-SHA512 (μs) | STHash (μs) | Ratio |
 | ---------------------------------------------- | ---------------- | ----------- | ----- |

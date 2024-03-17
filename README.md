@@ -26,7 +26,7 @@ use sthash::*;
 use rand::{thread_rng, RngCore};
 
 // This must be a random, secret seed.
-let seed = [u8; SEED_BYTES];
+let mut seed = [0u8; SEED_BYTES];
 thread_rng().fill_bytes(&mut seed);
 
 // The key constructor accepts an optional application name
@@ -39,10 +39,10 @@ let key = Key::from_seed(&seed, Some(b"Documentation example"));
 let hasher = Hasher::new(key, None);
 
 // Returns a 256-bit hash.
-let h1 = hasher.hash(data);
+let h1 = hasher.hash(b"data");
 
 // `Hasher` structures can safely be reused to hash more data.
-let h2 = hasher.hash(data2);
+let h2 = hasher.hash(b"data2");
 ```
 
 ## Benchmarks

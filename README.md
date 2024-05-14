@@ -96,7 +96,7 @@ Comparison with HMAC-SHA2 (from `rust-crypto`)
 ```text
 Km || Kp || Kn ← cSHAKE128(seed, c1)
 
-Hp ← Poly1305(Kp, NH(Kn, pad128(M)))
+Hp ← Poly1305(Kp, NH*(Kn, pad128(M)))
 
 H ← KMAC(Km, c2, pad64(|M|) || Hp)
 ```

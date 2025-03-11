@@ -1,6 +1,6 @@
 use super::*;
 
-impl<'t> Hasher<'t> {
+impl Hasher<'_> {
     #[cfg(target_arch = "x86_64")]
     #[target_feature(enable = "avx2")]
     pub(crate) unsafe fn hash_avx2(&self, out: &mut [u8; 16], msg: &[u8]) {

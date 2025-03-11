@@ -1,6 +1,6 @@
 use super::*;
 
-impl<'t> Hasher<'t> {
+impl Hasher<'_> {
     pub(crate) fn hash_portable(&self, out: &mut [u8; 16], msg: &[u8]) {
         let key = self.key;
         let mut poly_key = [0u8; 16];

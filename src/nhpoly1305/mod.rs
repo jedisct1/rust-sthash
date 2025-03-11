@@ -12,7 +12,7 @@ pub struct Hasher<'t> {
     key: &'t [u8],
 }
 
-impl<'t> Hasher<'t> {
+impl Hasher<'_> {
     pub fn hash(&self, out: &mut [u8; 16], msg: &[u8]) {
         #[cfg(target_arch = "x86_64")]
         {

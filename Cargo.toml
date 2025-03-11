@@ -1,6 +1,6 @@
 [package]
 name = "sthash"
-version = "0.2.15"
+version = "0.2.16"
 authors = ["Frank Denis <github@pureftpd.org>"]
 edition = "2018"
 description = "A very fast cryptographic hash function for large data."
